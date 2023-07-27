@@ -1,6 +1,6 @@
 # Image Classifier: Plant Health
 
-## Sumamry
+## Summary
 
 Due to climate change, there is an increased need to address resource scarcity. It is desirable to have an automated plant health monitoring system that can detect when a plant is experiencing stress such as wilting (underwatering). The user can experiment with the growing environment (i.e. the watering frequency) and use the monitoring system to track the plant's health. 
 

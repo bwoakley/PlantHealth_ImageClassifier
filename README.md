@@ -70,6 +70,24 @@ The bad news is that these results hint at two more issues:
 
 ### Problem 2: Overfitting.
 
+Our models our suffering from overfitting. To demonstrate this, we create a small model as follows. We import the images with size 40x40 pixels. This results in a pixelated version of each plant, but reduces the variables so that we can create a small model. Our small model is:
+
+	small_model = tf.keras.models.Sequential([
+	  tf.keras.layers.Rescaling(1./255),
+	  tf.keras.layers.Conv2D(32, 3, activation='relu'),
+	  tf.keras.layers.MaxPooling2D(),
+	  tf.keras.layers.Conv2D(32, 3, activation='relu'),
+	  tf.keras.layers.MaxPooling2D(),
+	  tf.keras.layers.Conv2D(32, 3, activation='relu'),
+	  tf.keras.layers.MaxPooling2D(),
+	  tf.keras.layers.Flatten(),
+	  tf.keras.layers.Dense(128, activation='relu'),
+	  tf.keras.layers.Dense(1)
+	])
+
+![image](Misc/Overfit)
+
+The image shows that the binary crossentropy of the training set and the validation set follow eachother closely during the first few epochs of training. Then starting at epoch 5, the entropy of the validation set increases while the entropy of the training set decreases. That is, the model begins to score better on the training set while scoring worse on the validation set. The model is overfitting to the training set, resulting in poor performance on the validation set. We attempt to address this by considering two commonly used techniques: Dropout and L2 regularization. See this [Tensorflow tutorial](https://www.tensorflow.org/tutorials/keras/overfit_and_underfit) for more details on these techniques.
 
 
 *** This project is in progress. Stay tuned for recent updates. ***

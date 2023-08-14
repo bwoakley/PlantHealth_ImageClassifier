@@ -85,7 +85,7 @@ Our models our suffering from overfitting. To demonstrate this, we create a smal
 	  tf.keras.layers.Dense(1)
 	])
 
-![image](Misc/Overfit)
+![image](Misc/Overfit.png)
 
 The image shows that the binary crossentropy of the training set and the validation set follow eachother closely during the first few epochs of training. Then starting at epoch 5, the entropy of the validation set increases while the entropy of the training set decreases. That is, the model begins to score better on the training set while scoring worse on the validation set. The model is overfitting to the training set, resulting in poor performance on the validation set. We attempt to address this by considering two commonly used techniques: Dropout and L2 regularization. See this [Tensorflow tutorial](https://www.tensorflow.org/tutorials/keras/overfit_and_underfit) for more details on these techniques.
 

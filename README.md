@@ -32,14 +32,14 @@ As a first pass at cleaning the data set, we require the image to:
 - [ ] variety of house plants (including succulents, ivies, woody trunked)
 - [ ] allowing distractions (humans, various pot types, different points of view, plant not in center of the image)
 - [ ] For the 'healthy' category: the image only has healthy plants (no mixture of sick and healthy)
-- [ ] For the 'wilted' category: allow a mixture of sick and 'healthy', but at lease one sick plant
+- [ ] For the 'wilted' category: allow a mixture of sick and 'healthy', but at least one sick plant
 
 Once we have the data, we take a second pass at cleaning:
 - [ ] remove links that are broken
 - [ ] check the image has correct file formatting (only allow .jpg, convert file type when necessary)
 - [ ] remove duplicate images (same file name)
 
-When we are finished with these steps, we were left with 145 images in the 'healthy' category and 143 images in the 'wilted' category. This should be sufficient to train the models.
+When we are finished with these steps, we are left with 145 images in the 'healthy' category and 143 images in the 'wilted' category. This should be sufficient to train the models.
 
 ## Methodology
 
@@ -68,7 +68,7 @@ We can confirm this issue is a fluke due to the small validation set size by cha
 
 ### Solution: Use a larger validation set.
 
-This time, using validation_split=0.35, the size of the validation set is 100 images. Fitting the model, we have a training accuracy of 0.7819 and validation accuracy of 0.7200. This is a much more reasonable result since the model performs better on the training set than the validation set by ~6%. By changing the random seed and rerunning the model fit a few more times, we can confirm that we no longer sometimes see the model performming better on the validation set than the training set. That is the good news.
+This time, using validation_split=0.35, the size of the validation set is 100 images. Fitting the model, we have a training accuracy of 0.7819 and validation accuracy of 0.7200. This is a much more reasonable result since the model performs better on the training set than the validation set by ~6%. By changing the random seed and rerunning the model fit a few more times, we can confirm that we no longer sometimes see the model performing better on the validation set than the training set. That is the good news.
 
 The bad news is that these results hint at two more issues:
 - [ ] Since the model performs better on the training set than the validation set, we have an issue with overfitting. 
@@ -127,7 +127,7 @@ We also show the results for this small (pixelated) model on the tulip dataset.
 
 ![image](Misc/tulips.png)
 
-In the above image, we show the image next to a bar chart. The image is labeled with the predicted category and the actual category. For example, the second image is labeled as "healthy 99% (wilted)", which means the model predicted the tulips were healthy with 99% probability, but they were actually wilted. The bar chart to the right of the image show the probability the image is healthy (category 0) or wilted (category 1). The bar is blue if the model is correct and red if the model is incorrect. 
+In the above image, we show the image next to a bar chart. The image is labeled with the predicted category and the actual category. For example, the second image is labeled as "healthy 99% (wilted)", which means the model predicted the tulips were healthy with 99% probability, but they were actually wilted. The bar chart to the right of the image shows the probability the image is healthy (category 0) or wilted (category 1). The bar is blue if the model is correct and red if the model is incorrect. 
 
 The above image demonstrates that the model can still predict the category with high accuracy even though the images are pixelated.
 

@@ -4,7 +4,7 @@
 
 Due to climate change, there is an increased need to address resource scarcity. It is desirable to have an automated plant health monitoring system that can detect when a plant is experiencing stress such as wilting (underwatering). The user can experiment with the growing environment (i.e. the watering frequency) and use the monitoring system to track the plant's health. 
 
-This project is a prototype of such a monitoring system.  We use TensorFlow and Keras to create an image classifier which detects if a house plant is healthy or wilted. We make adjustments to fix the overfitting and pursue hyperparameter tuning. 
+This project is a prototype of such a monitoring system.  We use TensorFlow and Keras to create an image classifier which detects if a house plant is healthy or wilted. We make adjustments to fix the overfitting. 
 
 ## Description
 
@@ -14,8 +14,8 @@ We construct a database of images of common house plants from Google Images. The
 
 All code is written in Python with a Jupyter Notebook (Snowflake). We compile the notebook in Google Colaboratory with T4 GPU hardware acceleration.
 
-- [] Image_classify.ipynb : The main python file.
-- [] Misc : Miscellaneous folder with images
+- [ ] Image_classify.ipynb : The main python file.
+- [ ] Misc : Miscellaneous folder with images
 
 ## Dataset creation, preprocessing, and cleaning
 
@@ -105,10 +105,10 @@ Then, after epoch 5, the entropy of the validation set increases while the entro
 
 See [this Tensorflow tutorial](https://www.tensorflow.org/tutorials/keras/overfit_and_underfit) for more details on how to address overfitting. In summary, the tutorial suggests:
 
-- [] Get more training data.
-- [] Reduce the capacity of the network.
-- [] Add weight regularization.
-- [] Add dropout.
+- [ ] Get more training data.
+- [ ] Reduce the capacity of the network.
+- [ ] Add weight regularization.
+- [ ] Add dropout.
 
 Notice that we are already considering a small model with images of size 40x40 pixels. This results in a pixelated version of each plant, but reduces the variables so that we can create a small model. We contiue by considering the other suggestions above.
 
@@ -137,34 +137,34 @@ The above image demonstrates that the model can still predict the category with 
 
 We update the model to include a dropout layer:
 
-small_dropout_model = tf.keras.models.Sequential([
-  tf.keras.layers.Rescaling(1./255),
-  tf.keras.layers.Conv2D(32, 3, activation='relu'),
-  tf.keras.layers.MaxPooling2D(),
-  tf.keras.layers.Conv2D(32, 3, activation='relu'),
-  tf.keras.layers.MaxPooling2D(),
-  tf.keras.layers.Conv2D(32, 3, activation='relu'),
-  tf.keras.layers.MaxPooling2D(),
-  tf.keras.layers.Flatten(),
-  tf.keras.layers.Dense(128, activation='relu'),
-  tf.keras.layers.Dropout(0.2),
-  tf.keras.layers.Dense(1)
-])
+	small_dropout_model = tf.keras.models.Sequential([
+  		tf.keras.layers.Rescaling(1./255),
+		tf.keras.layers.Conv2D(32, 3, activation='relu'),
+  		tf.keras.layers.MaxPooling2D(),
+  		tf.keras.layers.Conv2D(32, 3, activation='relu'),
+  		tf.keras.layers.MaxPooling2D(),
+  		tf.keras.layers.Conv2D(32, 3, activation='relu'),
+  		tf.keras.layers.MaxPooling2D(),
+  		tf.keras.layers.Flatten(),
+  		tf.keras.layers.Dense(128, activation='relu'),
+  		tf.keras.layers.Dropout(0.2),
+  		tf.keras.layers.Dense(1)
+	])
 
 We also consider an L2 regularized model:
 
-small_L2_model = tf.keras.models.Sequential([
-  tf.keras.layers.Rescaling(1./255),
-  tf.keras.layers.Conv2D(32, 3, activation='relu', kernel_regularizer=regularizers.l2(0.001)),
-  tf.keras.layers.MaxPooling2D(),
-  tf.keras.layers.Conv2D(32, 3, activation='relu', kernel_regularizer=regularizers.l2(0.001)),
-  tf.keras.layers.MaxPooling2D(),
-  tf.keras.layers.Conv2D(32, 3, activation='relu', kernel_regularizer=regularizers.l2(0.001)),
-  tf.keras.layers.MaxPooling2D(),
-  tf.keras.layers.Flatten(),
-  tf.keras.layers.Dense(128, activation='relu', kernel_regularizer=regularizers.l2(0.001)),
-  tf.keras.layers.Dense(1)
-])
+	small_L2_model = tf.keras.models.Sequential([
+  		tf.keras.layers.Rescaling(1./255),
+  		tf.keras.layers.Conv2D(32, 3, activation='relu', kernel_regularizer=regularizers.l2(0.001)),
+  		tf.keras.layers.MaxPooling2D(),
+  		tf.keras.layers.Conv2D(32, 3, activation='relu', kernel_regularizer=regularizers.l2(0.001)),
+  		tf.keras.layers.MaxPooling2D(),
+  		tf.keras.layers.Conv2D(32, 3, activation='relu', kernel_regularizer=regularizers.l2(0.001)),
+  		tf.keras.layers.MaxPooling2D(),
+  		tf.keras.layers.Flatten(),
+  		tf.keras.layers.Dense(128, activation='relu', kernel_regularizer=regularizers.l2(0.001)),
+  		tf.keras.layers.Dense(1)
+	])
 
 We plot the evolution of the entropy for each model against the original small model.
 

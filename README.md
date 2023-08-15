@@ -114,7 +114,7 @@ Notice that we are already considering a small model with images of size 40x40 p
 
 #### Getting more training data.
 
-Instead of getting more training data, we have decided to change the parameters of the project. We have chosen to focus one just one genus of house plant: tulips. That way, it is possible to collect by hand 100 training images for the 'healthy' and 'wilting' categories. By reducing the variability of the images, we have effectively given the model more training data of each 'type' of image. We plot the results below for the new tulips dataset:
+Instead of getting more training data, we have decided to change the parameters of the project. We have chosen to focus on just one genus of house plant: tulips. That way, it is possible to collect by hand 100 training images for the 'healthy' and 'wilting' categories. By reducing the variability of the images, we have effectively given the model more training data of each 'type' of image. We plot the results below for the new tulips dataset:
 
 ![image](Misc/Overfit.png)
 

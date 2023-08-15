@@ -64,11 +64,11 @@ which returns
 
 This validation set is quite small and causes an issue when fitting the model (we will describe the model in more detail later). The model returns an accuracy of 0.6883 on the training set and an accuracy of 0.8596 on the validation set. This is unexpected! Since the validation set is so small, we just happen to choose images that the model is good at categorizing (with accuracy ~ 86%), while the model is actually quite poor and we would not expect the performance to be better than that on the training set (an accuracy ~ 69%). 
 
-We can confirm this issue is a fluke due to the small validation set size by changing the random seed and running the model fit again. Doing so returns a training accuracy of 0.7316 and validation accuracy of 0.6491. We see that we do not have the model performming better on the validation set than the training set.
+We can confirm this issue is a fluke due to the small validation set size by changing the random seed and running the model fit again. Doing so returns a training accuracy of 0.7316 and validation accuracy of 0.6491. We see that we do not have the model performing better on the validation set than the training set.
 
 ### Solution: Use a larger validation set.
 
-This time, using validation_split=0.35, the size of the validation set is 100 images. Fitting the model, we have a training accuracy of 0.7819 and validation accuracy of 0.7200. This is a much more reasonable result since the model performs better on the training set than the validation set by ~6%. By changing the random seed and rerunning the model fit a few more time, we can confirm that we no longer sometimes see the model performming better on the validation set than the training set. That is the good news.
+This time, using validation_split=0.35, the size of the validation set is 100 images. Fitting the model, we have a training accuracy of 0.7819 and validation accuracy of 0.7200. This is a much more reasonable result since the model performs better on the training set than the validation set by ~6%. By changing the random seed and rerunning the model fit a few more times, we can confirm that we no longer sometimes see the model performming better on the validation set than the training set. That is the good news.
 
 The bad news is that these results hint at two more issues:
 - [ ] Since the model performs better on the training set than the validation set, we have an issue with overfitting. 
@@ -76,7 +76,7 @@ The bad news is that these results hint at two more issues:
 
 ### Problem 2: Overfitting.
 
-Our models our suffering from overfitting. To demonstrate this, we create a small model as follows. We import the images with size 40x40 pixels. This results in a pixelated version of each plant, but reduces the variables so that we can create a small model. Our small model is:
+Our models are suffering from overfitting. To demonstrate this, we create a small model as follows. We import the images with size 40x40 pixels. This results in a pixelated version of each plant, but reduces the variables so that we can create a small model. Our small model is:
 
 	small_model = tf.keras.models.Sequential([
 	  tf.keras.layers.Rescaling(1./255),
@@ -95,7 +95,7 @@ When fitting the model over 10 epochs, we have the following result:
 
 ![image](Misc/HouseOverfit.png)
 
-The image shows that the binary crossentropy of the training set and the validation set are not decreasing much from epoch 0 to epoch 5. This indicates the model is not performing well on either set (small entropy means the model performs well).  After epoch 7, the accuracy of the model on the __training set was 63% and on the validation set 58%__. Indeed, the model accuracy is only marginally better than a random guess (which would be 50% accuracy since we have two categories, 'healthy' or 'wilted').
+The image shows that the binary cross entropy of the training set and the validation set are not decreasing much from epoch 0 to epoch 5. This indicates the model is not performing well on either set (small entropy means the model performs well).  After epoch 7, the accuracy of the model on the __training set was 63% and on the validation set 58%__. Indeed, the model accuracy is only marginally better than a random guess (which would be 50% accuracy since we have two categories, 'healthy' or 'wilted').
 
 Then, after epoch 5, the entropy of the validation set increases while the entropy of the training set decreases. That is, the model begins to score better on the training set while scoring worse on the validation set. The model is overfitting to the training set, resulting in poor performance on the validation set.
 
@@ -110,15 +110,15 @@ See [this Tensorflow tutorial](https://www.tensorflow.org/tutorials/keras/overfi
 - [ ] Add weight regularization.
 - [ ] Add dropout.
 
-Notice that we are already considering a small model with images of size 40x40 pixels. This results in a pixelated version of each plant, but reduces the variables so that we can create a small model. We contiue by considering the other suggestions above.
+Notice that we are already considering a small model with images of size 40x40 pixels. This results in a pixelated version of each plant, but reduces the variables so that we can create a small model. We continue by considering the other suggestions above.
 
 #### Getting more training data.
 
-Instead of getting more training data, we have decided to change the parameters of the project. We have chosen to focus one just one genus of house plant: tulips. That way, it is possible to collect by hand 100 training images for the 'healthy' and 'wilting' categories. By reducing the variabiliy of the images, we have effectively given the model more training data of each 'type' of image. We plot the results below for the new tulips dataset:
+Instead of getting more training data, we have decided to change the parameters of the project. We have chosen to focus one just one genus of house plant: tulips. That way, it is possible to collect by hand 100 training images for the 'healthy' and 'wilting' categories. By reducing the variability of the images, we have effectively given the model more training data of each 'type' of image. We plot the results below for the new tulips dataset:
 
 ![image](Misc/Overfit.png)
 
-The image shows that the binary crossentropy of the training set and the validation set decrease together during the first few epochs of training.  After epoch 5, the accuracy of the model on the __training set was 79% and on the validation set 81%__. This is a major improvement over the house plants dataset! 
+The image shows that the binary cross entropy of the training set and the validation set decrease together during the first few epochs of training.  After epoch 5, the accuracy of the model on the __training set was 79% and on the validation set 81%__. This is a major improvement over the house plants dataset! 
 
 
 Then starting at epoch 5, we again see overfitting (the entropy of the validation set increases while the entropy of the training set decreases). We attempt to address this by considering two commonly used techniques: Dropout and L2 regularization. 
@@ -127,7 +127,7 @@ We also show the results for this small (pixelated) model on the tulip dataset.
 
 ![image](Misc/tulips.png)
 
-In the above image, we show the image next to a bar chart. The image is labeled with the predicted category and the actual category. For example, the second image is labeled as "healthy 99% (wilted)", which means the model predicted the tulips were healthy with 99% probability, but they were actually wilted. The bar chart to the right of the image show the probability the image is healthy (category 0) or wilted (category 1). The bar is blue if the model was correct and red if the model is incorrect. 
+In the above image, we show the image next to a bar chart. The image is labeled with the predicted category and the actual category. For example, the second image is labeled as "healthy 99% (wilted)", which means the model predicted the tulips were healthy with 99% probability, but they were actually wilted. The bar chart to the right of the image show the probability the image is healthy (category 0) or wilted (category 1). The bar is blue if the model is correct and red if the model is incorrect. 
 
 The above image demonstrates that the model can still predict the category with high accuracy even though the images are pixelated.
 
